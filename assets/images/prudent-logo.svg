@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 48" fill="none">
+  <g>
+    <!-- Modern Prudent Dynamic Ribbon Icon -->
+    <path d="M12 40 C14 26 22 14 34 8 C30 18 26 28 24 40 Z" fill="#0052FF"/>
+    <path d="M22 40 C25 24 35 12 48 8 C42 16 38 28 34 40 Z" fill="#00D4FF"/>
+    <path d="M18 40 C20 30 25 20 32 14 C27 22 24 30 22 40 Z" fill="#2563EB" opacity="0.8"/>
+  </g>
+  <!-- PRUDENT Typography -->
+  <text x="56" y="34" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="25" font-weight="800" letter-spacing="1.5" fill="#0052FF">PRUDENT</text>
+</svg>

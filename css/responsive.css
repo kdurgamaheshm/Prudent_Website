@@ -1,0 +1,1629 @@
+/* ==========================================================================
+   PRUDENT ENTERPRISE RESPONSIVE SYSTEM
+   Mobile-first responsive navigation and layout fixes
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   LARGE TABLET / SMALL LAPTOP
+   -------------------------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .services-bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .service-card-featured {
+    grid-column: span 2;
+  }
+
+  .mega-menu-services {
+    width: min(780px, calc(100vw - 2rem));
+  }
+
+  .partners-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   NAVIGATION SWITCH
+   The desktop nav is too wide below this point, so switch to the drawer
+   before the links can overflow.
+   -------------------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  :root {
+    --nav-height: 70px;
+  }
+
+  .header-container {
+    gap: 1rem;
+  }
+
+  .brand-logo {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .brand-logo img {
+    width: auto;
+    height: 36px;
+    max-width: min(160px, 55vw);
+  }
+
+  /* Desktop navigation becomes the off-canvas mobile/tablet drawer. */
+  .nav-menu-wrapper {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100vw;
+    height: calc(100dvh - var(--nav-height));
+    max-height: calc(100dvh - var(--nav-height));
+    margin: 0;
+    padding: 1.25rem 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    background: rgba(3, 7, 18, 0.985);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    transform: translateY(-110%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      transform 0.35s var(--ease-enterprise),
+      opacity 0.3s ease,
+      visibility 0.3s ease;
+    z-index: 1005;
+  }
+
+  #mobile-nav-toggle:checked ~ .header-wrapper .nav-menu-wrapper {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .nav-menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .nav-item {
+    width: 100%;
+  }
+
+  .nav-link {
+    width: 100%;
+    min-height: 52px;
+    padding: 0.9rem 0.25rem;
+    justify-content: space-between;
+    font-size: 1.05rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .nav-link::after {
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  /* Mobile mega menus: no fixed desktop widths and no horizontal overflow. */
+  .mega-menu,
+  .mega-menu-services,
+  .mega-menu-company {
+    position: static;
+    width: 100% !important;
+    max-width: 100%;
+    margin: 0.5rem 0 0.75rem;
+    padding: 0.75rem;
+    display: none;
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem;
+    transform: none !important;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    box-shadow: none;
+    border-radius: 12px;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .mega-menu::before {
+    display: none;
+  }
+
+  /* Keep dropdowns usable when keyboard/focus is used. */
+  .nav-item:focus-within .mega-menu,
+  .nav-item:hover .mega-menu {
+    display: grid;
+  }
+
+  .mega-item-link {
+    padding: 0.65rem;
+  }
+
+  .mega-item-name {
+    font-size: 0.9rem;
+  }
+
+  .mega-item-desc {
+    font-size: 0.76rem;
+  }
+
+  .nav-actions {
+    width: 100%;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .nav-actions .search-trigger-btn {
+    display: none;
+  }
+
+  .nav-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Mobile controls always remain visible above the drawer. */
+  .mobile-controls {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    z-index: 1010;
+  }
+
+  .mobile-search-btn {
+    display: flex;
+    color: #CBD5E1;
+  }
+
+  .hamburger-label {
+    display: flex;
+    flex: 0 0 28px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 28px;
+    height: 22px;
+    padding: 1px 0;
+    cursor: pointer;
+    z-index: 1011;
+  }
+
+  /* Force a visible brand-colored hamburger. */
+  .hamburger-bar {
+    display: block;
+    width: 28px;
+    height: 3px;
+    flex: 0 0 3px;
+    background-color: #06B6D4 !important;
+    border-radius: 99px;
+    opacity: 1 !important;
+    visibility: visible !important;
+    box-shadow: 0 0 7px rgba(6, 182, 212, 0.45);
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+
+  #mobile-nav-toggle:checked ~ .header-wrapper .hamburger-label .hamburger-bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  #mobile-nav-toggle:checked ~ .header-wrapper .hamburger-label .hamburger-bar:nth-child(2) {
+    opacity: 0 !important;
+  }
+
+  #mobile-nav-toggle:checked ~ .header-wrapper .hamburger-label .hamburger-bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   TABLET / MOBILE CONTENT
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  :root {
+    --nav-height: 68px;
+  }
+
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2.5rem;
+  }
+
+  .hero-text-content {
+    align-items: center;
+  }
+
+  .hero-lead-text {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-group {
+    justify-content: center;
+  }
+
+  .hero-visual-frame {
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .methodology-line {
+    display: none;
+  }
+
+  .methodology-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pillars-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .footer-brand {
+    grid-column: span 2;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   SMALL MOBILE
+   -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .header-container {
+    padding-left: 0.9rem;
+    padding-right: 0.9rem;
+  }
+
+  .brand-logo img {
+    height: 32px;
+    max-width: 145px;
+  }
+
+  .mobile-controls {
+    gap: 0.55rem;
+  }
+
+  .mobile-search-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .hamburger-label {
+    width: 26px;
+    flex-basis: 26px;
+  }
+
+  .hamburger-bar {
+    width: 26px;
+  }
+
+  .nav-menu-wrapper {
+    padding: 1rem 0.9rem 1.5rem;
+  }
+
+  .nav-link {
+    font-size: 1rem;
+    min-height: 50px;
+  }
+
+  .section-padding {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .display-title {
+    font-size: clamp(2.1rem, 10vw, 3rem);
+  }
+
+  .section-title {
+    font-size: 1.85rem;
+  }
+
+  .btn-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-group .btn {
+    width: 100%;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .services-bento-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-card-featured {
+    grid-column: span 1;
+  }
+
+  .methodology-container {
+    grid-template-columns: 1fr;
+  }
+
+  .case-card {
+    flex: 0 0 min(310px, calc(100vw - 2rem));
+  }
+
+  .partners-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .public-sector-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-full {
+    grid-column: span 1;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-brand {
+    grid-column: span 1;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 1.25rem;
+    text-align: center;
+  }
+
+  .footer-legal-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   VERY SMALL PHONES
+   -------------------------------------------------------------------------- */
+@media (max-width: 380px) {
+  .header-container {
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+  }
+
+  .brand-logo img {
+    height: 29px;
+    max-width: 130px;
+  }
+
+  .mobile-search-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .hamburger-label,
+  .hamburger-bar {
+    width: 24px;
+  }
+
+  .hamburger-label {
+    flex-basis: 24px;
+  }
+
+  .nav-menu-wrapper {
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+  }
+}
+
+/* Prevent accidental horizontal scrolling from wide components. */
+@media (max-width: 1100px) {
+  .nav-menu-wrapper,
+  .nav-menu-wrapper * {
+    max-width: 100%;
+  }
+
+  .mega-item-desc,
+  .mega-item-name,
+  .nav-link {
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+}
+
+
+/* Public Sector secondary navigation */
+.public-sector-subnav {
+  width: 100%;
+  max-width: 100%;
+  background: rgba(2, 6, 23, 0.35);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  color: #fff;
+}
+
+.public-sector-subnav-inner {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 0.9rem 1.25rem;
+}
+
+.public-sector-subnav-title {
+  flex: 0 0 auto;
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.public-sector-subnav-links {
+  min-width: 0;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(0.75rem, 1.6vw, 1.5rem);
+}
+
+.public-sector-subnav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.35;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.public-sector-subnav-links a:hover,
+.public-sector-subnav-links a:focus-visible {
+  color: #06B6D4;
+}
+
+@media (max-width: 1100px) {
+  .public-sector-subnav-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: 0.85rem 1rem;
+  }
+
+  .public-sector-subnav-title {
+    white-space: normal;
+  }
+
+  .public-sector-subnav-links {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.1rem 0 0.35rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .public-sector-subnav-links a {
+    flex: 0 0 auto;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.05);
+  }
+}
+
+@media (max-width: 640px) {
+  .public-sector-subnav-inner {
+    padding: 0.75rem 0.85rem;
+    gap: 0.55rem;
+  }
+
+  .public-sector-subnav-title {
+    font-size: 0.82rem;
+  }
+
+  .public-sector-subnav-links {
+    gap: 0.45rem;
+    margin-right: -0.85rem;
+    padding-right: 0.85rem;
+  }
+
+  .public-sector-subnav-links a {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.62rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .public-sector-subnav-title {
+    font-size: 0.78rem;
+  }
+
+  .public-sector-subnav-links a {
+    font-size: 0.72rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   MOBILE CONTENT SCALE - keep cards and typography compact
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .stat-card,
+  .service-card,
+  .pillar-card,
+  .partner-card {
+    padding: 1.1rem;
+    border-radius: 12px;
+  }
+
+  .stat-number {
+    font-size: 1.7rem;
+  }
+
+  .stat-label {
+    font-size: 0.82rem;
+  }
+
+  .service-title,
+  .pillar-content h3 {
+    font-size: 1.05rem;
+    line-height: 1.3;
+  }
+
+  .service-desc,
+  .pillar-content p,
+  .case-desc {
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+
+  .service-feature-list {
+    font-size: 0.82rem;
+  }
+
+  .case-card-body {
+    padding: 1rem;
+  }
+
+  .case-title {
+    font-size: 1.05rem;
+    line-height: 1.3;
+  }
+
+  .partner-card {
+    height: 72px;
+    padding: 1rem;
+  }
+
+  .partner-card img {
+    max-height: 32px;
+    max-width: 105px;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Public Sector page: compact hero and split content */
+  .public-sector-subnav-inner {
+    padding: 0.65rem 0.75rem;
+  }
+
+  .public-sector-subnav-title {
+    font-size: 0.78rem;
+  }
+
+  .public-sector-subnav-links a {
+    font-size: 0.7rem;
+    padding: 0.34rem 0.55rem;
+  }
+
+  .public-sector-subnav-links {
+    gap: 0.35rem;
+  }
+
+  .public-sector-subnav-links::-webkit-scrollbar {
+    height: 3px;
+  }
+
+  .public-sector-subnav-links::-webkit-scrollbar-thumb {
+    background: rgba(6, 182, 212, 0.45);
+    border-radius: 99px;
+  }
+
+  /* These sections use inline desktop styles in public-sector.html,
+     so !important is intentional here. */
+  main > section[style*="min-height: 50vh"] {
+    min-height: 0 !important;
+    padding: 3.25rem 1rem 3rem !important;
+  }
+
+  main > section[style*="min-height: 50vh"] > div:first-child {
+    width: 100% !important;
+    height: 100% !important;
+    opacity: 0.16;
+  }
+
+  main > section[style*="min-height: 50vh"] > div:nth-child(2) {
+    background: linear-gradient(110deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.82) 100%) !important;
+  }
+
+  main > section[style*="min-height: 50vh"] .container > div {
+    max-width: 100% !important;
+  }
+
+  main > section[style*="min-height: 50vh"] h1 {
+    font-size: clamp(2rem, 9vw, 2.6rem) !important;
+    line-height: 1.12 !important;
+    margin-bottom: 1rem !important;
+  }
+
+  main > section[style*="min-height: 50vh"] p {
+    font-size: 0.92rem !important;
+    line-height: 1.55 !important;
+    margin-bottom: 1.35rem !important;
+  }
+
+  main > section[style*="min-height: 50vh"] .container > div > div:last-child {
+    flex-wrap: wrap;
+    gap: 0.65rem !important;
+  }
+
+  main > section[style*="min-height: 50vh"] .container > div > div:last-child a {
+    font-size: 0.82rem;
+    padding: 0.7rem 0.9rem !important;
+  }
+
+  /* Public Sector split section becomes a compact vertical layout. */
+  main > section[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    min-height: 0 !important;
+  }
+
+  main > section[style*="grid-template-columns: 1fr 1fr"] > div {
+    min-height: 260px;
+    padding: 2rem 1rem !important;
+  }
+
+  main > section[style*="grid-template-columns: 1fr 1fr"] h2 {
+    font-size: 1.45rem !important;
+    line-height: 1.25 !important;
+  }
+
+  main > section[style*="grid-template-columns: 1fr 1fr"] p {
+    font-size: 0.9rem !important;
+    line-height: 1.55 !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .stat-card,
+  .service-card,
+  .pillar-card,
+  .partner-card {
+    padding: 0.9rem;
+  }
+
+  .service-title,
+  .pillar-content h3,
+  .case-title {
+    font-size: 0.98rem;
+  }
+
+  .service-desc,
+  .pillar-content p,
+  .case-desc {
+    font-size: 0.8rem;
+  }
+
+  main > section[style*="min-height: 50vh"] {
+    padding: 2.75rem 0.8rem 2.5rem !important;
+  }
+
+  main > section[style*="min-height: 50vh"] h1 {
+    font-size: 1.9rem !important;
+  }
+
+  main > section[style*="min-height: 50vh"] p {
+    font-size: 0.86rem !important;
+  }
+
+  main > section[style*="grid-template-columns: 1fr 1fr"] > div {
+    min-height: 220px;
+    padding: 1.6rem 0.8rem !important;
+  }
+
+  main > section[style*="grid-template-columns: 1fr 1fr"] h2 {
+    font-size: 1.25rem !important;
+  }
+
+  main > section[style*="grid-template-columns: 1fr 1fr"] p {
+    font-size: 0.84rem !important;
+  }
+}
+
+/* ============================================================================
+   FINAL RESPONSIVE PATCH - PRUDENT ENTERPRISE
+   Applies after the existing responsive rules.
+   ============================================================================ */
+
+/* Sticky header: stable on desktop, tablet and mobile. */
+.header-wrapper {
+  position: sticky !important;
+  top: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  z-index: 2000 !important;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img, svg, video, canvas {
+  max-width: 100%;
+}
+
+/* Better mobile navigation drawer. */
+@media (max-width: 1100px) {
+  .header-wrapper { min-height: var(--nav-height); }
+  .header-container { min-height: var(--nav-height); }
+  .nav-menu-wrapper {
+    top: var(--nav-height) !important;
+    height: calc(100dvh - var(--nav-height)) !important;
+    max-height: calc(100dvh - var(--nav-height)) !important;
+    padding: 0.8rem 1rem 1.25rem !important;
+  }
+  .nav-menu { gap: 0 !important; }
+  .nav-link { min-height: 48px !important; padding: 0.7rem 0.15rem !important; }
+}
+
+/* --------------------------------------------------------------------------
+   HOME - SERVICE CARDS + OPERATIONAL EXCELLENCE
+   -------------------------------------------------------------------------- */
+.services-bento-grid {
+  min-width: 0;
+}
+
+.service-card,
+.service-card-featured {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.service-title,
+.service-desc,
+.service-link,
+.service-feature-list {
+  min-width: 0;
+}
+
+.service-feature-list { align-items: flex-start; }
+.service-pill { max-width: 100%; overflow-wrap: anywhere; }
+
+.hero-badge-floating {
+  max-width: min(100%, 390px);
+}
+
+@media (max-width: 900px) {
+  .hero-badge-floating {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    width: auto;
+    max-width: none;
+    padding: 0.8rem 0.9rem;
+    gap: 0.7rem;
+  }
+  .hero-badge-icon { width: 38px; height: 38px; flex: 0 0 38px; }
+  .hero-badge-title { font-size: 0.84rem; }
+  .hero-badge-sub { font-size: 0.7rem; line-height: 1.35; }
+}
+
+@media (max-width: 768px) {
+  .hero-grid { gap: 1.75rem !important; }
+  .hero-visual-frame { width: 100%; }
+
+  .services-bento-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  .services-bento-grid .service-card,
+  .services-bento-grid .service-card-featured {
+    grid-column: auto !important;
+    min-height: 0 !important;
+    padding: 1.2rem !important;
+  }
+  .services-bento-grid .service-title {
+    font-size: clamp(1.15rem, 5vw, 1.45rem) !important;
+    line-height: 1.2 !important;
+    overflow-wrap: anywhere;
+  }
+  .services-bento-grid .service-desc {
+    font-size: 0.88rem !important;
+    line-height: 1.55 !important;
+  }
+  .services-bento-grid .service-feature-list { gap: 0.4rem !important; margin-bottom: 1.2rem !important; }
+  .services-bento-grid .service-pill { font-size: 0.7rem !important; padding: 0.32rem 0.58rem !important; }
+
+  .stats-section { padding: 2rem 0 !important; }
+  .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 0.75rem !important; }
+  .stat-card { padding: 1rem !important; min-width: 0; }
+  .stat-number { font-size: clamp(1.7rem, 8vw, 2.35rem) !important; }
+  .stat-label { font-size: 0.76rem !important; line-height: 1.3 !important; }
+  .stat-sub { font-size: 0.7rem !important; line-height: 1.35 !important; }
+}
+
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr !important; }
+  .stat-card { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); column-gap: 0.75rem; align-items: center; }
+  .stat-number { grid-row: span 2; }
+  .stat-label, .stat-sub { text-align: left; }
+}
+
+/* --------------------------------------------------------------------------
+   SERVICES PAGE - ZERO OBLIGATION / ALL BENTO CONTENT
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .service-card { min-height: 0 !important; }
+}
+
+@media (max-width: 768px) {
+  /* Inline-styled Zero Obligation block. */
+  .pillar-card {
+    padding: 1.25rem !important;
+    width: 100%;
+    max-width: 100%;
+  }
+  .pillar-card h2 {
+    font-size: clamp(1.35rem, 6vw, 1.85rem) !important;
+    line-height: 1.2 !important;
+  }
+  .pillar-card p { font-size: 0.9rem !important; line-height: 1.55 !important; }
+  .pillar-card > div > div[style*="repeat(3, 1fr)"] {
+    grid-template-columns: 1fr !important;
+    gap: 0.9rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   ABOUT - CORE PRINCIPLES / GLOBAL LEADERSHIP / WORLDWIDE REACH
+   -------------------------------------------------------------------------- */
+#values > .container > div[style*="repeat(3, 1fr)"],
+#locations > .container > div[style*="repeat(4, 1fr)"] {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  #values > .container > div[style*="repeat(3, 1fr)"],
+  #locations > .container > div[style*="repeat(4, 1fr)"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+  }
+
+  .infinity-leadership-section {
+    padding: 3rem 1rem !important;
+  }
+  .sn-graphic-container {
+    min-height: 430px !important;
+    max-width: 100% !important;
+    overflow: hidden;
+  }
+  .sn-bg-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+  }
+  .sn-user img { width: 64px !important; height: 64px !important; }
+  .sn-user-tag { max-width: 130px; font-size: 0.7rem !important; line-height: 1.25; }
+  .sn-center-pill {
+    max-width: calc(100% - 2rem);
+    white-space: normal !important;
+    text-align: center;
+    font-size: 0.9rem !important;
+    padding: 0.55rem 0.85rem !important;
+  }
+}
+
+@media (max-width: 600px) {
+  #values > .container > div[style*="repeat(3, 1fr)"],
+  #locations > .container > div[style*="repeat(4, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+  #values .service-card { min-height: 0 !important; }
+  #values .service-card h3 { font-size: 1.25rem !important; }
+  #values .service-card p { font-size: 0.86rem !important; }
+
+  .infinity-leadership-section .section-title { font-size: 1.6rem !important; }
+  .sn-graphic-container { min-height: 360px !important; }
+  .sn-user img { width: 52px !important; height: 52px !important; }
+  .sn-user-tag { max-width: 105px; font-size: 0.62rem !important; }
+  .leader-1 { left: 2% !important; }
+  .leader-2 { right: 2% !important; }
+  .leader-3 { left: 2% !important; }
+  .leader-4 { right: 2% !important; }
+}
+
+/* --------------------------------------------------------------------------
+   PARTNERS - ELITE CAPABILITIES / FEATURED CARD
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .services-bento-grid .service-card > div[style*="justify-content: space-between"] {
+    flex-wrap: wrap !important;
+    gap: 0.7rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .services-bento-grid .service-card > div[style*="justify-content: space-between"] img {
+    max-width: 140px !important;
+    height: auto !important;
+  }
+  .services-bento-grid .service-card > div[style*="justify-content: space-between"] .service-tag {
+    white-space: normal !important;
+    text-align: center;
+    font-size: 0.68rem !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   CAREERS - OPEN ROLES + APPLICATION FORM
+   -------------------------------------------------------------------------- */
+.careers-open-roles,
+.careers-application-section {
+  min-width: 0;
+}
+
+.careers-application-card {
+  min-width: 0;
+  width: 100%;
+}
+
+.careers-application-form input,
+.careers-application-form textarea,
+.careers-application-form select {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+@media (max-width: 900px) {
+  .careers-open-roles > .container > div[style*="repeat(2, 1fr)"],
+  .careers-application-section > .container {
+    grid-template-columns: 1fr !important;
+  }
+  .careers-open-roles > .container > div[style*="repeat(2, 1fr)"] > div {
+    padding: 1.4rem !important;
+  }
+  .careers-application-section > .container {
+    gap: 2rem !important;
+  }
+  .careers-application-card {
+    padding: 1.25rem !important;
+    border-radius: 14px !important;
+  }
+  .careers-application-form {
+    gap: 0.9rem !important;
+  }
+  .careers-application-form > div:first-child {
+    grid-template-columns: 1fr !important;
+    gap: 0.9rem !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .careers-open-roles > .container > div[style*="repeat(2, 1fr)"] > div h3 {
+    font-size: 1.35rem !important;
+  }
+  .careers-open-roles > .container > div[style*="repeat(2, 1fr)"] > div p {
+    font-size: 0.92rem !important;
+  }
+  .careers-application-section > .container > div:first-child {
+    padding-top: 0 !important;
+  }
+  .careers-application-section .section-title { font-size: 1.8rem !important; }
+  .careers-application-card h3 { font-size: 1.25rem !important; margin-bottom: 1.1rem !important; }
+  .careers-application-form input,
+  .careers-application-form textarea {
+    padding: 0.7rem !important;
+    font-size: 0.88rem !important;
+  }
+  .careers-application-form > div:last-of-type > div {
+    padding: 1rem !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   PUBLIC SECTOR - SECOND NAVIGATION + INLINE DESKTOP SECTIONS
+   -------------------------------------------------------------------------- */
+.public-sector-subnav + main,
+.public-sector-subnav { min-width: 0; }
+
+@media (max-width: 768px) {
+  .public-sector-subnav-inner { overflow: hidden; }
+  main > section[style*="grid-template-columns: 1fr 1fr"] > div {
+    min-width: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   CONTACT - CONSULTATION FORM / LOCATIONS
+   -------------------------------------------------------------------------- */
+.contact-split-section > .container {
+  min-width: 0;
+}
+
+.contact-form-card {
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.contact-consultation-form,
+.contact-consultation-form * { box-sizing: border-box; }
+
+.contact-consultation-form input,
+.contact-consultation-form select,
+.contact-consultation-form textarea {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  font: inherit;
+}
+
+.contact-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.contact-form-field { min-width: 0; }
+.contact-form-label { display: block; margin-bottom: 0.35rem; }
+.contact-form-input {
+  min-height: 42px;
+  padding: 0.7rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  background: #fff;
+  color: #0f172a;
+}
+.contact-form-textarea { min-height: 88px; resize: vertical; }
+.contact-form-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.68rem;
+  line-height: 1.45;
+  color: #475569;
+}
+.contact-form-check input { width: 14px; height: 14px; flex: 0 0 14px; margin-top: 2px; }
+.contact-form-disclosure {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 0.7rem;
+  color: #64748b;
+  font-size: 0.64rem;
+  line-height: 1.4;
+}
+.contact-form-submit {
+  border: 0;
+  min-height: 42px;
+  padding: 0.7rem 1.1rem;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+  .contact-split-section > .container { grid-template-columns: 1fr !important; gap: 2rem !important; }
+  .contact-form-card { max-width: 760px; margin: 0 auto; }
+}
+
+@media (max-width: 600px) {
+  .contact-split-section { padding: 3rem 1rem !important; }
+  .contact-form-card { padding: 1rem !important; border-radius: 12px !important; }
+  .contact-form-grid { grid-template-columns: 1fr !important; gap: 0.8rem; }
+  .contact-form-label { font-size: 0.72rem !important; }
+  .contact-form-input { min-height: 40px; padding: 0.62rem 0.7rem; }
+  .contact-form-check { font-size: 0.62rem; }
+  .contact-form-disclosure { font-size: 0.59rem; }
+  .contact-form-submit { width: 100%; }
+}
+
+/* --------------------------------------------------------------------------
+   GLOBAL FOOTER - COMPACT ON TABLET + MOBILE
+   -------------------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .footer-wrapper { padding: 3rem 0 1.5rem !important; }
+  .footer-grid { gap: 1.5rem !important; margin-bottom: 2rem !important; }
+  .footer-brand p { font-size: 0.8rem !important; line-height: 1.5 !important; margin-top: 0.8rem !important; }
+  .footer-col-title { font-size: 0.72rem !important; margin-bottom: 0.7rem !important; }
+  .footer-links-list { gap: 0.45rem !important; }
+  .footer-link { font-size: 0.75rem !important; line-height: 1.35 !important; }
+  .footer-social-links { gap: 0.5rem !important; }
+  .footer-bottom { padding-top: 1.25rem !important; font-size: 0.72rem !important; }
+  .footer-legal-links { gap: 0.8rem !important; }
+}
+
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1.25rem !important;
+  }
+  .footer-brand { grid-column: 1 / -1 !important; }
+  .footer-brand img { height: 30px !important; width: auto !important; }
+}
+
+@media (max-width: 420px) {
+  .footer-wrapper { padding: 2.5rem 0 1.25rem !important; }
+  .footer-grid { gap: 1rem !important; }
+  .footer-link { font-size: 0.7rem !important; }
+  .footer-col-title { font-size: 0.68rem !important; }
+}
+
+/* Respect reduced-motion preferences. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ============================================================================
+   FINAL PATCH v2 - STICKY HEADER / SEARCH / MOBILE CONTENT
+   ============================================================================ */
+
+/* Keep the header genuinely sticky while preserving the original glass style. */
+html, body { overflow-x: clip; }
+body { display: block; }
+.header-wrapper {
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  top: 0 !important;
+  z-index: 5000 !important;
+  align-self: stretch !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+.header-container { min-height: var(--nav-height); }
+
+/* Desktop search icon: always visible and never squeezed by nav links. */
+.nav-actions { flex: 0 0 auto; }
+.nav-actions .search-trigger-btn {
+  display: flex !important;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.search-trigger-btn svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+/* Mobile/tablet controls: search + hamburger stay in the sticky header. */
+.mobile-controls {
+  display: none;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .65rem;
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 5100;
+}
+.mobile-controls .search-trigger-btn {
+  display: flex !important;
+  width: 40px;
+  height: 40px;
+  color: #0F172A;
+  background: rgba(255,255,255,.9);
+  border-radius: 50%;
+}
+.mobile-controls .search-trigger-btn svg { width: 20px; height: 20px; }
+
+@media (max-width: 1100px) {
+  .nav-actions { display: none !important; }
+  .mobile-controls { display: flex !important; }
+  .header-wrapper { top: 0 !important; }
+  .nav-menu-wrapper {
+    top: var(--nav-height) !important;
+    z-index: 4990 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    min-height: 68px;
+    height: 68px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .brand-logo img { max-width: 145px; height: 32px; }
+  .mobile-controls .search-trigger-btn { width: 38px; height: 38px; }
+  .mobile-controls .hamburger-label { width: 27px; height: 22px; }
+  .mobile-controls .hamburger-bar { width: 27px; height: 3px; }
+
+  /* Services hero: keep the long eyebrow and heading inside the viewport. */
+  .hero-section[style*="min-height: 60vh"] { min-height: 0 !important; padding: 4.25rem 0 3.5rem !important; }
+  .hero-grid { width: 100%; gap: 2rem !important; }
+  .hero-text-content { min-width: 0; width: 100%; }
+  .hero-text-content .eyebrow-tag {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.25;
+    font-size: .72rem;
+    text-align: center;
+  }
+  .hero-text-content .display-title {
+    max-width: 100%;
+    font-size: clamp(2rem, 9vw, 3rem) !important;
+    line-height: 1.08;
+    overflow-wrap: anywhere;
+  }
+  .hero-text-content .display-title br { display: none; }
+  .hero-text-content .hero-lead-text {
+    max-width: 42rem;
+    font-size: .94rem;
+    line-height: 1.55;
+  }
+  .hero-text-content .btn-group { width: 100%; }
+  .hero-text-content .btn { max-width: 100%; white-space: normal; }
+
+  /* Careers hero - follows the supplied screenshot reference. */
+  .careers-hero-grid,
+  .hero-section .careers-hero-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+  .careers-hero-grid .hero-text-content { text-align: center; align-items: center; }
+  .careers-hero-grid .display-title { font-size: clamp(2.15rem, 10vw, 3.4rem) !important; line-height: 1.05; }
+  .careers-hero-grid .hero-lead-text { font-size: .95rem; max-width: 42rem; }
+  .careers-hero-grid .hero-visual-frame {
+    width: min(100%, 520px);
+    min-height: 280px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .careers-hero-grid .hero-visual-frame img {
+    width: 100%;
+    max-height: 420px;
+    object-fit: contain;
+    transform: none !important;
+  }
+
+  /* Global Leadership: prevent names/titles from escaping their cards. */
+  .infinity-leadership-section { padding: 3rem .75rem !important; overflow: hidden; }
+  .sn-graphic-container {
+    width: 100%;
+    max-width: 100%;
+    min-height: 500px;
+    aspect-ratio: auto;
+    overflow: hidden;
+  }
+  .sn-bg-image { width: 125%; max-width: none; opacity: .72; }
+  .sn-user { max-width: 31%; animation: none; }
+  .sn-user img { width: 68px !important; height: 68px !important; }
+  .sn-user-tag {
+    width: min(118px, 100%);
+    max-width: 118px;
+    padding: .38rem .45rem !important;
+    margin-top: -8px;
+    border-radius: 12px;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    font-size: .66rem !important;
+    line-height: 1.2;
+  }
+  .sn-user-tag span { font-size: .56rem !important; line-height: 1.25; margin-top: .15rem; }
+  .leader-1 { top: 8%; left: 3%; }
+  .leader-2 { top: 8%; right: 3%; }
+  .leader-3 { bottom: 8%; left: 7%; }
+  .leader-4 { bottom: 8%; right: 7%; }
+  .sn-center-pill {
+    width: min(150px, 42vw);
+    max-width: 150px;
+    padding: .6rem .7rem !important;
+    font-size: .78rem !important;
+    line-height: 1.25;
+    white-space: normal !important;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container { padding-left: .75rem; padding-right: .75rem; }
+  .brand-logo img { max-width: 132px; height: 30px; }
+  .mobile-controls { gap: .45rem; }
+  .mobile-controls .search-trigger-btn { width: 36px; height: 36px; }
+  .mobile-controls .hamburger-label { width: 25px; }
+  .mobile-controls .hamburger-bar { width: 25px; }
+
+  .careers-hero-grid .display-title { font-size: clamp(2rem, 11vw, 2.65rem) !important; }
+  .careers-hero-grid .hero-visual-frame { min-height: 235px; }
+
+  .sn-graphic-container { min-height: 440px; }
+  .sn-user img { width: 58px !important; height: 58px !important; }
+  .sn-user-tag { width: 96px; max-width: 96px; font-size: .58rem !important; }
+  .sn-user-tag span { font-size: .5rem !important; }
+  .leader-1 { top: 6%; left: 1%; }
+  .leader-2 { top: 6%; right: 1%; }
+  .leader-3 { bottom: 6%; left: 3%; }
+  .leader-4 { bottom: 6%; right: 3%; }
+  .sn-center-pill { width: 128px; font-size: .7rem !important; }
+}
+
+/* --------------------------------------------------------------------------
+   MOBILE SEARCH OVERLAY / CLOSE BUTTON
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .search-modal {
+    padding: 0;
+    align-items: flex-start;
+    overflow-y: auto;
+  }
+
+  .search-modal-content {
+    width: 100%;
+    max-width: none;
+    min-height: 100dvh;
+    padding: 92px 1rem 2rem;
+  }
+
+  .search-modal-close {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.96);
+    border: 1px solid rgba(148, 163, 184, 0.38);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .3);
+  }
+
+  .search-modal-close svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .search-box-wrapper {
+    margin-bottom: 1.5rem;
+  }
+
+  .search-input {
+    min-height: 54px;
+    font-size: 1rem;
+    padding: 1rem 1rem 1rem 3rem;
+  }
+
+  .search-pills {
+    gap: .55rem;
+  }
+
+  .search-pill {
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.3;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-modal-content {
+    padding: 82px .85rem 1.5rem;
+  }
+
+  .search-modal-close {
+    top: 12px;
+    right: 12px;
+    width: 42px;
+    height: 42px;
+  }
+}
+/* =========================================================
+   MOBILE SEARCH MODAL - FIXED CLOSE BUTTON
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .search-modal {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    z-index: 99999;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 20px;
+  }
+
+  .search-modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 70px 20px 30px;
+  }
+
+  /* CLOSE BUTTON */
+  .search-modal-close {
+    position: absolute !important;
+    top: 18px !important;
+    right: 18px !important;
+
+    width: 44px !important;
+    height: 44px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    border: 1px solid #d9deea !important;
+    border-radius: 50% !important;
+
+    background: #ffffff !important;
+    color: #14245f !important;
+
+    box-shadow: 0 4px 15px rgba(20, 36, 95, 0.12);
+
+    text-decoration: none !important;
+
+    z-index: 100000;
+
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  /* SVG X */
+  .search-modal-close svg {
+    width: 22px !important;
+    height: 22px !important;
+
+    display: block !important;
+
+    fill: none !important;
+    stroke: currentColor !important;
+    stroke-width: 2 !important;
+
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+  }
+
+  .search-modal-close:hover {
+    background: #f3f6ff !important;
+    border-color: #3155df !important;
+    color: #3155df !important;
+  }
+
+  .search-modal-close:active {
+    transform: scale(0.94);
+  }
+
+  .search-modal-close:focus-visible {
+    outline: 3px solid rgba(49, 85, 223, 0.25);
+    outline-offset: 3px;
+  }
+
+  /* SEARCH FIELD */
+  .search-box-wrapper {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .search-input {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  /* SEARCH PILLS */
+  .search-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .search-pill {
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+  }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .search-modal {
+    padding: 12px;
+  }
+
+  .search-modal-content {
+    padding: 65px 14px 25px;
+  }
+
+  .search-modal-close {
+    top: 12px !important;
+    right: 12px !important;
+
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .search-modal-close svg {
+    width: 19px !important;
+    height: 19px !important;
+  }
+
+  .search-input {
+    height: 48px;
+    font-size: 14px;
+  }
+
+  .search-pill {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+}
